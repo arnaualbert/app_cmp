@@ -21,12 +21,11 @@ path = os.getcwd()
 UPLOAD_FOLDER = os.path.join(path, 'uploads')
 FWD_FOLDER = os.path.join(path, 'uploads/fwd')
 RV_FOLDER = os.path.join(path, 'uploads/rv')
-app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
+#app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-### NEW uploads/fwd
 app.config['FWD_FOLDER'] = FWD_FOLDER
 app.config['RV_FOLDER'] = RV_FOLDER
 ALLOWED_EXTENSIONS = set(['*fasta.*','fastaq.gz','gz','fq.gz','*fq.*'])
