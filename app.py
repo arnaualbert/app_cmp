@@ -52,8 +52,8 @@ def demultiplexing():
         This function is used to demultiplex the fastq files.
         It takes all the parameters from the html form.
     '''
-    if request.method == 'GET':
-        return render_template('demultiplexing.html')
+    # if request.method == 'GET':
+    #     return render_template('demultiplexing.html')
     if request.method == 'POST':
         fastas_fwd = request.files.getlist("fastas_fwd")
         fastas_fwd_ls = []
@@ -81,7 +81,7 @@ def demultiplexing():
         print(params)
         #print(f'fastas_fwd: {fastas_fwd_ls}, fastas_rv: {fastas_rv_ls}, output_dir: {output_dir}, ref_genome: {ref_genome}, organism_name: {organism_name},num_of_threads: {num_of_threads}, reads_per_chunk: {reads_per_chunk}, replace: {replace},skip_removing_tmp_files: {skip_removing_tmp_files}, wit_db: {wit_db}')
         return redirect(url_for('demultiplexing'))
-    # return render_template('demultiplexing.html')
+    return render_template('demultiplexing.html')
 
 #############################################################################################################################
 #############################################################################################################################
