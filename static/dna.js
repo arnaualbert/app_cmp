@@ -86,7 +86,7 @@ function sendDna_v2() {
         //objects.push(dnaParams);
     }
     $.ajax({
-        url:'/test',
+        url:'/crossmaper/dna',
         type:'POST',
         contentType: 'application/json',
         data: JSON.stringify(objects),

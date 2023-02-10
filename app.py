@@ -52,6 +52,8 @@ def demultiplexing():
         This function is used to demultiplex the fastq files.
         It takes all the parameters from the html form.
     '''
+    if request.method == 'GET':
+        return render_template('demultiplexing.html')
     if request.method == 'POST':
         fastas_fwd = request.files.getlist("fastas_fwd")
         fastas_fwd_ls = []
@@ -79,7 +81,7 @@ def demultiplexing():
         print(params)
         #print(f'fastas_fwd: {fastas_fwd_ls}, fastas_rv: {fastas_rv_ls}, output_dir: {output_dir}, ref_genome: {ref_genome}, organism_name: {organism_name},num_of_threads: {num_of_threads}, reads_per_chunk: {reads_per_chunk}, replace: {replace},skip_removing_tmp_files: {skip_removing_tmp_files}, wit_db: {wit_db}')
         return redirect(url_for('demultiplexing'))
-    return render_template('demultiplexing.html')
+    # return render_template('demultiplexing.html')
 
 #############################################################################################################################
 #############################################################################################################################
@@ -89,18 +91,29 @@ def demultiplexing():
 def crossmaper():
     return render_template('crossmaper.html')
 
-@app.route('/crossmaper/dna')
+# @app.route('/crossmaper/dna')
+# def crossmaperdna():
+#     return render_template('crossmaperdna.html')
+@app.route('/crossmaper/dna',methods=['GET','POST'])
 def crossmaperdna():
-    return render_template('crossmaperdna.html')
+    if request.method == 'GET':
+        return render_template('crossmaperdna.html')
+    if request.method == 'POST':
+        output = request.get_json()
+        result = json.dumps(output)
+        result = json.loads(result)
+        for res in result:
+            print(res)
+        # print(len(result))
+        return redirect(url_for('crossmaperdna'))
 
-
-@app.route('/test',methods=['POST'])
-def test():
-    output = request.get_json()
-    result = json.dumps(output)
-    result = json.loads(result)
-    print(result)
-    return result
+# @app.route('/test',methods=['POST'])
+# def test():
+#     output = request.get_json()
+#     result = json.dumps(output)
+#     result = json.loads(result)
+#     # print(result)
+#     return result
 
 @app.route('/crossmaper/rna')
 def crossmaperrna():
