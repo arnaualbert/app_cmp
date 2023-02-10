@@ -19,11 +19,16 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 path = os.getcwd()
 # file Upload
 UPLOAD_FOLDER = os.path.join(path, 'uploads')
+FWD_FOLDER = os.path.join(path, 'uploads/fwd')
+RV_FOLDER = os.path.join(path, 'uploads/rv')
 app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+### NEW uploads/fwd
+app.config['FWD_FOLDER'] = FWD_FOLDER
+app.config['RV_FOLDER'] = RV_FOLDER
 ALLOWED_EXTENSIONS = set(['*fasta.*','fastaq.gz','gz','fq.gz','*fq.*'])
 
 #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -60,15 +65,19 @@ def demultiplexing():
         for f in fastas_fwd:
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
-                f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                fastas_fwd_ls.append(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                # f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                f.save(os.path.join(app.config['FWD_FOLDER'], filename))
+                # fastas_fwd_ls.append(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                fastas_fwd_ls.append(os.path.join(app.config['FWD_FOLDER'],filename))
         fastas_rv = request.files.getlist("fastas_rv")
         fastas_rv_ls = []
         for f in fastas_rv:
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
-                f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                fastas_rv_ls.append(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                # f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                f.save(os.path.join(app.config['RV_FOLDER'], filename))
+                # fastas_rv_ls.append(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                fastas_rv_ls.append(os.path.join(app.config['RV_FOLDER'],filename))
         output_dir = request.form['output_dir']
         ref_genome = request.form['ref_genome']
         organism_name = request.form['organism_name']
