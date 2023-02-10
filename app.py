@@ -9,7 +9,7 @@ from pathlib import Path
 # from flask import request
 
 UPLOAD_FOLDER = '/home/arnaualbert/Desktop/uiflask/uploads'
-ALLOWED_EXTENSIONS = {'*fasta.*','fastaq.gz','gz','fq.gz','*fq.*'}
+#ALLOWED_EXTENSIONS = {'*fasta.*','fastaq.gz','gz','fq.gz','*fq.*'}
 module_name = __name__
 app = Flask(__name__)
 root_path : Path = Path(app.root_path) 
@@ -21,7 +21,7 @@ path = os.getcwd()
 UPLOAD_FOLDER = os.path.join(path, 'uploads')
 FWD_FOLDER = os.path.join(path, 'uploads/fwd')
 RV_FOLDER = os.path.join(path, 'uploads/rv')
-#app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
+app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
