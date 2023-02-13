@@ -8,26 +8,37 @@ import shutil
 from pathlib import Path
 # from flask import request
 
-UPLOAD_FOLDER = '/home/arnaualbert/Desktop/uiflask/uploads'
+#UPLOAD_FOLDER = '/home/arnaualbert/Desktop/uiflask/uploads'
 #ALLOWED_EXTENSIONS = {'*fasta.*','fastaq.gz','gz','fq.gz','*fq.*'}
 module_name = __name__
 app = Flask(__name__)
-root_path : Path = Path(app.root_path) 
-app.secret_key = "secret key"
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+#root_path : Path = Path(app.root_path) 
+#app.secret_key = "secret key"
+#app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 # Get current path
 path = os.getcwd()
 # file Upload
-UPLOAD_FOLDER = os.path.join(path, 'uploads')
-FWD_FOLDER = os.path.join(path, 'uploads/fwd')
-RV_FOLDER = os.path.join(path, 'uploads/rv')
-app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
-if not os.path.isdir(UPLOAD_FOLDER):
-    os.mkdir(UPLOAD_FOLDER)
+DEMULTIPLEXING_FOLDER = os.path.join(path, 'demultiplexing')
+FWD_FOLDER = os.path.join(path, 'demultiplexing/fwd')
+RV_FOLDER = os.path.join(path, 'demultiplexing/rv')
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['FWD_FOLDER'] = FWD_FOLDER
-app.config['RV_FOLDER'] = RV_FOLDER
+#app.config['DEST_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads' #### last try
+# if not os.path.isdir(UPLOAD_FOLDER):
+#     os.mkdir(UPLOAD_FOLDER)
+
+if not os.path.isdir(DEMULTIPLEXING_FOLDER):
+    os.mkdir(DEMULTIPLEXING_FOLDER)
+
+if not os.path.isdir(FWD_FOLDER):
+    os.mkdir(FWD_FOLDER)
+
+if not os.path.isdir(RV_FOLDER):
+    os.mkdir(RV_FOLDER)
+
+app.config['DEMULTIPLEXING_FOLDER'] = DEMULTIPLEXING_FOLDER
+app.config['DEMULTIPLEXING_FWD_FOLDER'] = FWD_FOLDER
+app.config['DEMULTIPLEXING_RV_FOLDER'] = RV_FOLDER
+
 ALLOWED_EXTENSIONS = set(['*fasta.*','fastaq.gz','gz','fq.gz','*fq.*'])
 
 #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -65,18 +76,18 @@ def demultiplexing():
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
                 # f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                f.save(os.path.join(app.config['FWD_FOLDER'], filename))
+                f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], filename))
                 # fastas_fwd_ls.append(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                fastas_fwd_ls.append(os.path.join(app.config['FWD_FOLDER'],filename))
+                fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],filename))
         fastas_rv = request.files.getlist("fastas_rv")
         fastas_rv_ls = []
         for f in fastas_rv:
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
                 # f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                f.save(os.path.join(app.config['RV_FOLDER'], filename))
+                f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
                 # fastas_rv_ls.append(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-                fastas_rv_ls.append(os.path.join(app.config['RV_FOLDER'],filename))
+                fastas_rv_ls.append(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'],filename))
         output_dir = request.form['output_dir']
         ref_genome = request.form['ref_genome']
         organism_name = request.form['organism_name']
