@@ -1,6 +1,6 @@
 import json
 from webbrowser import get
-from flask import Flask, render_template, request,flash,redirect,url_for,Response
+from flask import Flask, render_template, request,flash,redirect,url_for,Response, send_file
 import random
 from werkzeug.utils import secure_filename
 import os
@@ -17,6 +17,10 @@ path = os.getcwd()
 DEMULTIPLEXING_FOLDER = os.path.join(path, 'demultiplexing')
 FWD_FOLDER = os.path.join(path, 'demultiplexing/fwd')
 RV_FOLDER = os.path.join(path, 'demultiplexing/rv')
+COMMANDS_FOLDER = os.path.join(path, 'commands')
+
+if not os.path.isdir(COMMANDS_FOLDER):
+    os.mkdir(COMMANDS_FOLDER)
 
 if not os.path.isdir(DEMULTIPLEXING_FOLDER):
     os.mkdir(DEMULTIPLEXING_FOLDER)
@@ -59,15 +63,18 @@ def demultiplexing():
         fastas_fwd_ls = []
         for f in fastas_fwd:
             if f and allowed_file(f.filename):
+                # print(f.filename)
                 filename = secure_filename(f.filename)
-                f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], filename))
-                fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],filename))
+                # f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], filename))
+                # fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],filename))
+                fastas_fwd_ls.append(os.path.join(filename))
+
         fastas_rv = request.files.getlist("fastas_rv")
         fastas_rv_ls = []
         for f in fastas_rv:
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
-                f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
+                # f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
                 fastas_rv_ls.append(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'],filename))
         output_dir = request.form['output_dir']
         ref_genome = request.form['ref_genome']
@@ -87,10 +94,21 @@ def demultiplexing():
         command = f' --fastq1 {fastas_fs_ls_string} --fastq2 {fastas_rv_ls_string} --outdir {output_dir} --refGenomes {ref_genome} --sampleNames {organism_name} --trheads {num_of_threads} --nreads_per_chunk {reads_per_chunk} --skip_removing_tmp_files {skip_removing_tmp_files} --wit_db {wit_db}'
         print(command)
         print(type(command))
+        with open('commands/command.txt', 'w') as f:
+            f.write(command)
         #print(f'fastas_fwd: {fastas_fwd_ls}, fastas_rv: {fastas_rv_ls}, output_dir: {output_dir}, ref_genome: {ref_genome}, organism_name: {organism_name},num_of_threads: {num_of_threads}, reads_per_chunk: {reads_per_chunk}, replace: {replace},skip_removing_tmp_files: {skip_removing_tmp_files}, wit_db: {wit_db}')
-        return redirect(url_for('demultiplexing'))
+        # return redirect(url_for('demultiplexing'))
+        data = {'command':command}
+        return render_template('command.html',data=data)
+    #     data = {'command':command}
+    #     return render_template('demultiplexing.html',data=data)
+    # return render_template('demultiplexing.html',data={})
     return render_template('demultiplexing.html')
 
+
+@app.route('/command')
+def command():
+    return render_template('command.html',data={})
 #############################################################################################################################
 #############################################################################################################################
 #############################################################################################################################
