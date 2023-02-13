@@ -77,8 +77,16 @@ def demultiplexing():
         #replace = request.form['replace']
         skip_removing_tmp_files = request.form['skip_removing_tmp_files']
         wit_db = request.form['wit_db']
-        params = {"fastas_fwd":fastas_fwd_ls,"fastas_rv":fastas_rv_ls,"output_dir":output_dir,"ref_genome":ref_genome,"organism_name":organism_name,"num_of_threads":num_of_threads,"reads_per_chunk":reads_per_chunk,"skip_removing_tmp_files":skip_removing_tmp_files,"wit_db":wit_db}
+        # params = {"fastas_fwd":fastas_fwd_ls,"fastas_rv":fastas_rv_ls,"output_dir":output_dir,"ref_genome":ref_genome,"organism_name":organism_name,"num_of_threads":num_of_threads,"reads_per_chunk":reads_per_chunk,"skip_removing_tmp_files":skip_removing_tmp_files,"wit_db":wit_db}
+        params = {"--fastq1":fastas_fwd_ls,"--fastq2":fastas_rv_ls,"--outdir":output_dir,"--refGenomes":ref_genome,"--sampleNames":organism_name,"--trheads":num_of_threads,"--nreads_per_chunk":reads_per_chunk,"--skip_removing_tmp_files":skip_removing_tmp_files,"--wit_db":wit_db}
         print(params)
+        print(type(params))
+        #for rout in fastas_fwd_ls:
+        fastas_fs_ls_string = " ".join(fastas_fwd_ls)
+        fastas_rv_ls_string = " ".join(fastas_rv_ls)
+        command = f' --fastq1 {fastas_fs_ls_string} --fastq2 {fastas_rv_ls_string} --outdir {output_dir} --refGenomes {ref_genome} --sampleNames {organism_name} --trheads {num_of_threads} --nreads_per_chunk {reads_per_chunk} --skip_removing_tmp_files {skip_removing_tmp_files} --wit_db {wit_db}'
+        print(command)
+        print(type(command))
         #print(f'fastas_fwd: {fastas_fwd_ls}, fastas_rv: {fastas_rv_ls}, output_dir: {output_dir}, ref_genome: {ref_genome}, organism_name: {organism_name},num_of_threads: {num_of_threads}, reads_per_chunk: {reads_per_chunk}, replace: {replace},skip_removing_tmp_files: {skip_removing_tmp_files}, wit_db: {wit_db}')
         return redirect(url_for('demultiplexing'))
     return render_template('demultiplexing.html')
