@@ -119,10 +119,28 @@ def crossmaperdna():
         return render_template('crossmaperdna.html')
     if request.method == 'POST':
         output = request.get_json()
-        result = json.dumps(output)
-        result = json.loads(result)
-        for res in result:
-            print(res)
+        print(output)
+        for i in output:
+            print(type(i))
+            print(i)
+            i = json.loads(i)
+            print(type(i))
+            numofreads = i['numberOfReads']
+            print(numofreads)
+        # print(type(output))
+        # for result in output:
+        #     result = json.dumps(output)
+        #     print(result)
+        #     print(type(result))
+        # result = json.dumps(output)
+        # result = json.loads(result)
+        # print(result)
+        # print(len(result))
+        # print(type(result[0]))
+        # print(result['numberOfReads'])
+        # for res in result:
+        #     print(res)
+            #print(res['numberOfReads'])
         # print(len(result))
         return redirect(url_for('crossmaperdna'))
 
