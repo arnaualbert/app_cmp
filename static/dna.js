@@ -85,14 +85,14 @@ function sendDna_v2() {
         objects.push(dnaJSON);
         //objects.push(dnaParams);
     }
-    $.ajax({
-        url:'/crossmaper/dna',
-        type:'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(objects),
-        success: function (data) {
-            console.log(data);
-        }
-    })
+    // $.ajax({
+    //     url:'/crossmaper/dna',
+    //     type:'POST',
+    //     contentType: 'application/json',
+    //     data: JSON.stringify(objects),
+    //     success: function (data) {
+    //         console.log(data);
+    //     }
+    // })
     console.log(objects);
 }
