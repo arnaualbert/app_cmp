@@ -122,75 +122,76 @@ def crossmaper():
 ########################FUNCIONA#######################################
 #####################################################################
 #########################################################################
-# @app.route('/crossmaper/dna',methods=['GET','POST'])
-# def crossmaperdna():
-#     if request.method == 'GET':
-#         return render_template('crossmaperdna.html')
-#     if request.method == 'POST':
-#         output = request.get_json()
-#         # print(output)
-#         for i in output:
-#             # print(type(i))
-#             # print(i)
-#             i = json.loads(i)
-#             # print(type(i))
-#             numofreads = i['numberOfReads']
-#             print(f'number of reads: {numofreads}')
-#         # print(type(output))
-#         # for result in output:
-#         #     result = json.dumps(output)
-#         #     print(result)
-#         #     print(type(result))
-#         # result = json.dumps(output)
-#         # result = json.loads(result)
-#         # print(result)
-#         # print(len(result))
-#         # print(type(result[0]))
-#         # print(result['numberOfReads'])
-#         # for res in result:
-#         #     print(res)
-#             #print(res['numberOfReads'])
-#         # print(len(result))
-#         return redirect(url_for('crossmaperdna'))
-#####################################################################
-#########################################################################
 @app.route('/crossmaper/dna',methods=['GET','POST'])
 def crossmaperdna():
     if request.method == 'GET':
         return render_template('crossmaperdna.html')
     if request.method == 'POST':
-        fastq = request.files.getlist("fastq")
-        genome_name = request.form.getlist('genome_name')
-        number_of_reads = request.form.getlist('number_of_reads')
-        read_length = request.form.getlist('read_length')
-        read_configuration = request.form['read_configuration']
-        number_of_cores = request.form['number_of_cores']
-        base_error_rate = request.form['base_error_rate']
-        oouter_distance = request.form['outer_distance']
-        standar_deviation = request.form['standar_deviation']
-        coverage = request.form['coverage']
-        mutation_rate = request.form['mutation_rate']
-        indel_fraction = request.form['indel_fraction']
-        indel_extended = request.form['indel_extended']
-        seed_random_generator = request.form['seed_random_generator']
-        discard_ambiguos = request.form['discard_ambiguos']
-        haplotype_mode = request.form['haplotype_mode']
-        output_directory = request.form['output_directory']
-        verbose_mode = request.form['verbose_mode']
-        group_bar_chart = request.form['group_bar_chart']
-        report_cross_mapped = request.form['report_cross_mapped']
-        mapper_template_path = request.form['mapper_template_path']
-        min_seed_length = request.form['min_seed_length']
-        matching_score = request.form['matching_score']
-        missmatch_penalty = request.form['missmatch_penalty']
-        fastq_ls_string = " ".join(fastq)
-        genome_name_string = " ".join(genome_name)
-        number_of_reads_string = " ".join(number_of_reads)
-        read_length_string = " ".join(read_length)
-        command = f"-g {fastq_ls_string} -gn {genome_name_string} -rlen {read_length_string}  -N {number_of_reads_string} -t {number_of_cores} -e {base_error_rate} -d {oouter_distance} -s {standar_deviation} -C {coverage} -r {mutation_rate} -R {indel_fraction} -X {indel_extended} -S {seed_random_generator} -AMB {discard_ambiguos} -hapl {haplotype_mode} -o {output_directory} --verbose {verbose_mode} -gb {group_bar_chart} -rc {report_cross_mapped} --mapper-template {mapper_template_path} -k {min_seed_length} -A {matching_score} -B {missmatch_penalty}"
-        # return redirect(url_for('crossmaperdna'))
-        data = {'command':command}
-        return render_template('command.html',data=data)
+        output = request.get_json()
+        # print(output)
+        for i in output:
+            # print(type(i))
+            # print(i)
+            i = json.loads(i)
+            # print(type(i))
+            numofreads = i['numberOfReads']
+            print(f'number of reads: {numofreads}')
+        # print(type(output))
+        # for result in output:
+        #     result = json.dumps(output)
+        #     print(result)
+        #     print(type(result))
+        # result = json.dumps(output)
+        # result = json.loads(result)
+        # print(result)
+        # print(len(result))
+        # print(type(result[0]))
+        # print(result['numberOfReads'])
+        # for res in result:
+        #     print(res)
+            #print(res['numberOfReads'])
+        # print(len(result))
+        return redirect(url_for('crossmaperdna'))
+#####################################################################
+#########################################################################
+
+# @app.route('/crossmaper/dna',methods=['GET','POST'])
+# def crossmaperdna():
+#     if request.method == 'GET':
+#         return render_template('crossmaperdna.html')
+#     if request.method == 'POST':
+#         fastq = request.files.getlist("fastq")
+#         genome_name = request.form.getlist('genome_name')
+#         number_of_reads = request.form.getlist('number_of_reads')
+#         read_length = request.form.getlist('read_length')
+#         read_configuration = request.form['read_configuration']
+#         number_of_cores = request.form['number_of_cores']
+#         base_error_rate = request.form['base_error_rate']
+#         oouter_distance = request.form['outer_distance']
+#         standar_deviation = request.form['standar_deviation']
+#         coverage = request.form['coverage']
+#         mutation_rate = request.form['mutation_rate']
+#         indel_fraction = request.form['indel_fraction']
+#         indel_extended = request.form['indel_extended']
+#         seed_random_generator = request.form['seed_random_generator']
+#         discard_ambiguos = request.form['discard_ambiguos']
+#         haplotype_mode = request.form['haplotype_mode']
+#         output_directory = request.form['output_directory']
+#         verbose_mode = request.form['verbose_mode']
+#         group_bar_chart = request.form['group_bar_chart']
+#         report_cross_mapped = request.form['report_cross_mapped']
+#         mapper_template_path = request.form['mapper_template_path']
+#         min_seed_length = request.form['min_seed_length']
+#         matching_score = request.form['matching_score']
+#         missmatch_penalty = request.form['missmatch_penalty']
+#         fastq_ls_string = " ".join(fastq)
+#         genome_name_string = " ".join(genome_name)
+#         number_of_reads_string = " ".join(number_of_reads)
+#         read_length_string = " ".join(read_length)
+#         command = f"-g {fastq_ls_string} -gn {genome_name_string} -rlen {read_length_string}  -N {number_of_reads_string} -t {number_of_cores} -e {base_error_rate} -d {oouter_distance} -s {standar_deviation} -C {coverage} -r {mutation_rate} -R {indel_fraction} -X {indel_extended} -S {seed_random_generator} -AMB {discard_ambiguos} -hapl {haplotype_mode} -o {output_directory} --verbose {verbose_mode} -gb {group_bar_chart} -rc {report_cross_mapped} --mapper-template {mapper_template_path} -k {min_seed_length} -A {matching_score} -B {missmatch_penalty}"
+#         # return redirect(url_for('crossmaperdna'))
+#         data = {'command':command}
+#         return render_template('command.html',data=data)
 
 # @app.route('/test',methods=['POST'])
 # def test():
