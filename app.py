@@ -96,8 +96,10 @@ def demultiplexing():
         command = f' --fastq1 {fastas_fs_ls_string} --fastq2 {fastas_rv_ls_string} --outdir {output_dir} --refGenomes {ref_genome_string} --sampleNames {organism_name_string} --trheads {num_of_threads} --nreads_per_chunk {reads_per_chunk} --skip_removing_tmp_files {skip_removing_tmp_files} --wit_db {wit_db}'
         print(command)
         print(type(command))
-        with open('commands/command.txt', 'w') as f:
-            f.write(command)
+
+        #with open('commands/command.txt', 'w') as f:
+        #    f.write(command)
+        
         #print(f'fastas_fwd: {fastas_fwd_ls}, fastas_rv: {fastas_rv_ls}, output_dir: {output_dir}, ref_genome: {ref_genome}, organism_name: {organism_name},num_of_threads: {num_of_threads}, reads_per_chunk: {reads_per_chunk}, replace: {replace},skip_removing_tmp_files: {skip_removing_tmp_files}, wit_db: {wit_db}')
         # return redirect(url_for('demultiplexing'))
         data = {'command':command}
@@ -128,6 +130,7 @@ def crossmaperdna():
         return render_template('crossmaperdna.html')
     if request.method == 'POST':
         output = request.get_json()
+        
         # print(output)
         for i in output:
             # print(type(i))
@@ -136,6 +139,7 @@ def crossmaperdna():
             # print(type(i))
             numofreads = i['numberOfReads']
             print(f'number of reads: {numofreads}')
+            # print(i)
         # print(type(output))
         # for result in output:
         #     result = json.dumps(output)
@@ -151,6 +155,7 @@ def crossmaperdna():
         #     print(res)
             #print(res['numberOfReads'])
         # print(len(result))
+        command = f'hola'
         return redirect(url_for('crossmaperdna'))
 #####################################################################
 #########################################################################
