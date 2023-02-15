@@ -54,7 +54,9 @@ function sendDna_v2() {
     var form_fasta = document.querySelectorAll("#form_fasta");
     var fastaq = document.querySelectorAll("#fastaq");
     var genomeName = document.querySelectorAll("#genome_name");
-    var readLength = document.getElementById("read_length");
+    // var readLength = document.getElementById("read_length");
+    var readLength = document.querySelectorAll("#read_length");
+
     var readConfiguration = document.getElementById("read_configuration");
     var numberOfReads = document.querySelectorAll("#number_of_reads");
     var numberofcores = document.getElementById("number_of_cores");
@@ -80,7 +82,7 @@ function sendDna_v2() {
 
 
     for (var i = 0; i < total_obj; i++) {
-        var dnaParams = new DnaParams(fastaq[i].value, genomeName[i].value, readLength.value, readConfiguration.value, numberOfReads[i].value, numberofcores.value, baseerorrate.value, outerDistance.value, standarDeviation.value, coverage.value, mutationRate.value, indelFraction.value, indelExtended.value, seedRandomGenerator.value, discarambiguous.value, haplotypeMode.value, outputDirectory.value, verboseMode.value, groupBarChart.value, reportCrossMapped.value, mapperTemplatePath.value, minSeedLength.value, matchingScore.value, mismatchPenalty.value);
+        var dnaParams = new DnaParams(fastaq[i].value, genomeName[i].value, readLength[i].value, readConfiguration.value, numberOfReads[i].value, numberofcores.value, baseerorrate.value, outerDistance.value, standarDeviation.value, coverage.value, mutationRate.value, indelFraction.value, indelExtended.value, seedRandomGenerator.value, discarambiguous.value, haplotypeMode.value, outputDirectory.value, verboseMode.value, groupBarChart.value, reportCrossMapped.value, mapperTemplatePath.value, minSeedLength.value, matchingScore.value, mismatchPenalty.value);
         var dnaJSON = JSON.stringify(dnaParams);
         objects.push(dnaJSON);
         //objects.push(dnaParams);
