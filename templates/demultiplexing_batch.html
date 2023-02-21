@@ -40,16 +40,10 @@
             <div class="container text-center">
                 <div class="row g-3 row-cols-4">
                     <div class="col">
-                        <label for="fasta0" class="col-form-label">FASTQ 1 FWD</label>
+                        <label for="fastas" class="col-form-label">FASTAS</label>
                     </div>
                     <div class="col">
-                        <input type="file" id="fasta0" name="fastas_fwd"  class="form-control">
-                    </div>
-                    <div class="col">
-                        <label for="fasta1" class="col-form-label">FASTQ 2 RV</label>
-                    </div>
-                    <div class="col">
-                        <input type="file" id="fasta1" name="fastas_rv" class="form-control">
+                        <input type="file" id="fastas" name="fastas" directory="" webkitdirectory="" mozdirectory="" msdirectory="" odirectory="" class="form-control">
                     </div>
                     <div class="col">
                         <label for="output_dir" class="col-form-label">Output Directory</label>
@@ -58,10 +52,10 @@
                         <input type="text" id="output_dir" name="output_dir" class="form-control">
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location.href='/demultiplexing_batch'">Batch Mode</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location.href='/demultiplexing'">Batch Mode</button>
                     </div>
                     <div class="col">
-                        <p id="isactivated">Batch mode deactivated</p>
+                        <p id="isactivated">Batch mode activated</p>
                     </div>
                 </div>
                 <hr class="border border-secondary border-2 opacity-75">
@@ -136,7 +130,7 @@
         <div class="container text-center">
             <div class="row g-3 row-cols-2">
                 <button type="submit" id="proceed_demultiplexing" class="btn btn-outline-secondary btn-sm"
-                    onclick="sendDemultiplexing()">Proceed</button>
+                    onclick="sendDemultiplexingBatch()">Proceed</button>
             </div>
         </div>
         </form>
