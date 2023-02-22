@@ -65,16 +65,13 @@ def demultiplexing():
         fastas_fwd_ls = []
         for f in fastas_fwd:
             if f and allowed_file(f.filename):
-                # print(f'./{f.filename}')
-                # print(f.filename)
+
                 
                 print(f.filename)
                 print(secure_filename(f.filename))
                 filename = secure_filename(f.filename)
                 f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], filename))
                 fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],filename))
-                #fastas_fwd_ls.append(os.path.join(filename))
-                #fastas_fwd_ls.append(os.path.join(output_dir,f.filename))
 
         fastas_rv = request.files.getlist("fastas_rv")
         fastas_rv_ls = []
@@ -82,12 +79,8 @@ def demultiplexing():
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
                 print(f.filename)
-                ###############################################################################################
-                # print(f.name)
-                # f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
-                # fastas_rv_ls.append(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'],filename))
-                ###############################################################################################
-                fastas_rv_ls.append(os.path.join(output_dir,f.filename))
+                f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
+                fastas_rv_ls.append(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'],filename))
 
         # output_dir = request.form['output_dir']
         ref_genome = request.form.getlist('ref_genome')
@@ -331,9 +324,49 @@ def crossmaperdna():
 #     # print(result)
 #     return result
 
-@app.route('/crossmaper/rna')
+@app.route('/crossmaper/rna',methods=['GET','POST'])
 def crossmaperrna():
-    return render_template('crossmaperna.html')
+    if request.method == 'GET':
+        return render_template('crossmaperna.html')
+    if request.method == 'POST':
+        fastq = request.files.getlist("fastaq")
+        fastq_ls = []
+        for f in fastq:
+            fastq_ls.append(f.filename)
+        genome_name = request.form.getlist('genome_name')
+        number_of_reads = request.form.getlist('number_of_reads')
+        read_length = request.form.getlist('read_length')
+        read_configuration = request.form['read_configuration']
+        # add annotations gtf
+        annotations_gtf = request.form.getlist('annotations_gtf')
+        number_of_cores = request.form['number_of_cores']
+        base_error_rate = request.form['base_error_rate']
+        oouter_distance = request.form['outer_distance']
+        standar_deviation = request.form['standar_deviation']
+        coverage = request.form['coverage']
+        mutation_rate = request.form['mutation_rate']
+        indel_fraction = request.form['indel_fraction']
+        indel_extended = request.form['indel_extended']
+        seed_random_generator = request.form['seed_random_generator']
+        discard_ambiguos = request.form['discard_ambiguos']
+        haplotype_mode = request.form['haplotype_mode']
+        output_directory = request.form['output_directory']
+        verbose_mode = request.form['verbose_mode']
+        group_bar_chart = request.form['group_bar_chart']
+        report_cross_mapped = request.form['report_cross_mapped']
+        mapper_template_path = request.form['mapper_template_path']
+        max_mismatch_per_len = request.form['max_mismatch_per_len']
+        bact_mode = request.form['bact_mode']
+        max_mismatch = request.form['max_mismatch']
+        star_tmp = request.form['star_temp']
+        fastq_ls_string = " ".join(fastq_ls)
+        genome_name_string = " ".join(genome_name)
+        number_of_reads_string = " ".join(number_of_reads)
+        read_length_string = " ".join(read_length)
+        command = f"-g {fastq_ls_string} -gn {genome_name_string} -rlen {read_length_string} -rlay {read_configuration} -N {number_of_reads_string} -a {annotations_gtf} -t {number_of_cores} -e {base_error_rate} -d {oouter_distance} -s {standar_deviation} -C {coverage} -r {mutation_rate} -R {indel_fraction} -X {indel_extended} -S {seed_random_generator} -AMB {discard_ambiguos} -hapl {haplotype_mode} -o {output_directory} --verbose {verbose_mode} -gb {group_bar_chart} -rc {report_cross_mapped} --mapper-template {mapper_template_path} -max_mismatch_per_len {max_mismatch_per_len} -bact_mode {bact_mode} -max_mismatch {max_mismatch} -star_tmp {star_tmp}"
+        data = {'command':command}
+        return render_template('command.html',data=data)
+
 
 ##############################################################################################################
 #############################################  WORKS  ########################################################
