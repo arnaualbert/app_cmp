@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 # Get current path
 path = os.getcwd()
+print(path)
 # file Upload
 DEMULTIPLEXING_FOLDER = os.path.join(path, 'demultiplexing')
 FWD_FOLDER = os.path.join(path, 'demultiplexing/fwd')
@@ -357,7 +358,9 @@ def search_files(root_dir, extension):
 
 
 if __name__ == "__main__":
-    #app.config['UPLOAD_FOLDER'] = '/home/arnaualbert/Desktop/uiflask/uploads'
+    # activate the source venv: source ./venv/bin/activate
+    # deactivate the source venv: deactivate
+    # run in debug mode: flask --app app --debug run
     app.run(debug=True)
     #app.run(debug=True, port=5000)
     # app.run(host="127.0.0.1", port=8080, debug=True)
