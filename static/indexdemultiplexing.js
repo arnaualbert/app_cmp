@@ -69,37 +69,37 @@ function addFormReferenceOrganism() {
     where_form.appendChild(new_form);
 }
 /////////////////// works
-// function batchmode() {
-//     var fasta0 = document.getElementById("fasta0");
-//     var fasta1 = document.getElementById("fasta1");
-//     var isactivated = document.getElementById("isactivated");
-//     if(fasta0.hasAttribute("directory")&&fasta1.hasAttribute("directory")){
-//     fasta0.removeAttribute("directory");
-//     fasta0.removeAttribute("webkitdirectory");
-//     fasta0.removeAttribute("mozdirectory");
-//     fasta0.removeAttribute("msdirectory");
-//     fasta0.removeAttribute("odirectory");
-//     fasta1.removeAttribute("directory");
-//     fasta1.removeAttribute("webkitdirectory");
-//     fasta1.removeAttribute("mozdirectory");
-//     fasta1.removeAttribute("msdirectory");
-//     fasta1.removeAttribute("odirectory");
-//     isactivated.innerHTML = 'Batch mode deactivated'    
-//   }else{
-//     fasta0.setAttribute("directory", "");
-//     fasta0.setAttribute("webkitdirectory", "");
-//     fasta0.setAttribute("mozdirectory", "");
-//     fasta0.setAttribute("msdirectory", "");
-//     fasta0.setAttribute("odirectory", "");
-//     fasta1.setAttribute("directory", "");
-//     fasta1.setAttribute("webkitdirectory", "");
-//     fasta1.setAttribute("mozdirectory", "");
-//     fasta1.setAttribute("msdirectory", "");
-//     fasta1.setAttribute("odirectory", "");
-//     isactivated.innerHTML = 'Batch mode activated'
-//   }
+function batchmode() {
+    var fasta0 = document.getElementById("fasta0");
+    var fasta1 = document.getElementById("fasta1");
+    var isactivated = document.getElementById("isactivated");
+    if(fasta0.hasAttribute("directory")&&fasta1.hasAttribute("directory")){
+    fasta0.removeAttribute("directory");
+    fasta0.removeAttribute("webkitdirectory");
+    fasta0.removeAttribute("mozdirectory");
+    fasta0.removeAttribute("msdirectory");
+    fasta0.removeAttribute("odirectory");
+    fasta1.removeAttribute("directory");
+    fasta1.removeAttribute("webkitdirectory");
+    fasta1.removeAttribute("mozdirectory");
+    fasta1.removeAttribute("msdirectory");
+    fasta1.removeAttribute("odirectory");
+    isactivated.innerHTML = 'Batch mode deactivated'    
+  }else{
+    fasta0.setAttribute("directory", "");
+    fasta0.setAttribute("webkitdirectory", "");
+    fasta0.setAttribute("mozdirectory", "");
+    fasta0.setAttribute("msdirectory", "");
+    fasta0.setAttribute("odirectory", "");
+    fasta1.setAttribute("directory", "");
+    fasta1.setAttribute("webkitdirectory", "");
+    fasta1.setAttribute("mozdirectory", "");
+    fasta1.setAttribute("msdirectory", "");
+    fasta1.setAttribute("odirectory", "");
+    isactivated.innerHTML = 'Batch mode activated'
+  }
 
-// }
+}
 
 
 
