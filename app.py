@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import os
 import shutil
 from pathlib import Path
+import re
 # from flask import request
 
 module_name = __name__
@@ -120,11 +121,11 @@ def demultiplexing():
 # def command():
 #     return render_template('command.html',data={})
 
-@app.route('/demultiplexing_batch')
+@app.route('/demultiplexing_batch',methods=['GET', 'POST'])
 def demultiplexing_batch():
     if request.method == 'POST':
         output_dir = request.form['output_dir']
-        fastas_fwd = request.files.getlist("fastas_fwd")
+        fastas_fwd = request.files.getlist("fastas")
         fastas_fwd_ls = []
         for f in fastas_fwd:
             if f and allowed_file(f.filename):
@@ -133,24 +134,32 @@ def demultiplexing_batch():
                 
                 print(f.filename)
                 print(secure_filename(f.filename))
+                reg = r'\w+\/?\w+R1\.\w*\.\w+'
+                compiled_reg = re.compile(reg)
+                if compiled_reg.match(f.filename):
+                    fastas_fwd_ls.append(os.path.join(output_dir,f.filename))
                 # filename = secure_filename(f.filename)
                 # f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], filename))
                 # fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],filename))
                 # fastas_fwd_ls.append(os.path.join(filename))
-                fastas_fwd_ls.append(os.path.join(output_dir,f.filename))
+                # fastas_fwd_ls.append(os.path.join(output_dir,f.filename))
 
-        fastas_rv = request.files.getlist("fastas_rv")
+        fastas_rv = request.files.getlist("fastas")
         fastas_rv_ls = []
         for f in fastas_rv:
             if f and allowed_file(f.filename):
                 filename = secure_filename(f.filename)
                 print(f.filename)
+                reg = r'\w+\/?\w+R2\.\w*\.\w+'
+                compiled_reg = re.compile(reg)
+                if compiled_reg.match(f.filename):
+                    fastas_rv_ls.append(os.path.join(output_dir,f.filename))
                 ###############################################################################################
                 # print(f.name)
                 # f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
                 # fastas_rv_ls.append(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'],filename))
                 ###############################################################################################
-                fastas_rv_ls.append(os.path.join(output_dir,f.filename))
+                # fastas_rv_ls.append(os.path.join(output_dir,f.filename))
 
         # output_dir = request.form['output_dir']
         ref_genome = request.form.getlist('ref_genome')
