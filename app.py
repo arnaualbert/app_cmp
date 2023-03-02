@@ -137,7 +137,9 @@ def demultiplexing_batch():
                 reg = r'\w+\/?\w+R1\.\w*\.\w+'
                 compiled_reg = re.compile(reg)
                 if compiled_reg.match(f.filename):
-                    fastas_fwd_ls.append(os.path.join(output_dir,f.filename))
+                    # fastas_fwd_ls.append(os.path.join(output_dir,f.filename))
+                    #importante arreglar f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], f.filename))
+                    fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],f.filename))
                 # filename = secure_filename(f.filename)
                 # f.save(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'], filename))
                 # fastas_fwd_ls.append(os.path.join(app.config['DEMULTIPLEXING_FWD_FOLDER'],filename))
@@ -153,7 +155,9 @@ def demultiplexing_batch():
                 reg = r'\w+\/?\w+R2\.\w*\.\w+'
                 compiled_reg = re.compile(reg)
                 if compiled_reg.match(f.filename):
-                    fastas_rv_ls.append(os.path.join(output_dir,f.filename))
+                    # fastas_rv_ls.append(os.path.join(output_dir,f.filename))
+                    #importante arreglar f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], f.filename))
+                    fastas_rv_ls.append(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'],f.filename))
                 ###############################################################################################
                 # print(f.name)
                 # f.save(os.path.join(app.config['DEMULTIPLEXING_RV_FOLDER'], filename))
